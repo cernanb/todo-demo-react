@@ -2,36 +2,47 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
-const todos = [{ name: 'Clean Room', id: 1 }, { name: 'Call Mom', id: 2 }]
-
 class App extends Component {
   constructor() {
     super()
     this.state = {
       todos: [],
-      newTodo: ''
+      newTodo: '',
     }
   }
 
   componentDidMount() {
-    this.setState({
-      todos: todos
-    })
+    fetch(`http://localhost:3001/api/v1/tasks`)
+      .then(res => res.json())
+      .then(todos => this.setState({ todos }))
   }
 
   handleOnChange(e) {
     this.setState({
-      newTodo: e.target.value
+      newTodo: e.target.value,
     })
   }
 
   addTodo(e) {
     e.preventDefault()
-    const newTodo = {
+    const task = {
       name: this.state.newTodo,
-      id: this.state.todos.length + 1
     }
-    this.setState({ todos: this.state.todos.concat(newTodo), newTodo: '' })
+    fetch(`http://localhost:3001/api/v1/tasks`, {
+      method: 'POST',
+      body: JSON.stringify({ task }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(task =>
+        this.setState({
+          todos: this.state.todos.concat(task),
+          newTodo: '',
+        })
+      )
   }
 
   render() {

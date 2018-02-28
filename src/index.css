@@ -11,3 +11,7 @@ ul {
 li {
   list-style-type: none;
 }
+
+.text-strike {
+  text-decoration: line-through;
+}

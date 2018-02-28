@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addTask } from '../redux/actions/taskActions'
 
 class NewTask extends Component {
   state = {
@@ -9,24 +11,27 @@ class NewTask extends Component {
     e.preventDefault()
     const task = {
       name: this.state.newTodo,
+      completed: false,
     }
-    fetch(`http://localhost:3001/api/v1/tasks`, {
-      method: 'POST',
-      body: JSON.stringify({ task }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(task =>
-        this.setState(
-          {
-            newTodo: '',
-          },
-          () => this.props.history.push('/tasks')
-        )
-      )
+    this.props.createTask(task)
+    this.props.history.push('/tasks')
+    // fetch(`http://localhost:3001/api/v1/tasks`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ task }),
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    //   .then(res => res.json())
+    //   .then(task =>
+    //     this.setState(
+    //       {
+    //         newTodo: '',
+    //       },
+    //       () => this.props.history.push('/tasks')
+    //     )
+    //   )
   }
 
   handleOnChange(e) {
@@ -50,4 +55,12 @@ class NewTask extends Component {
   }
 }
 
-export default NewTask
+const mapDispatchToProps = dispatch => {
+  return {
+    createTask(task) {
+      dispatch(addTask(task))
+    },
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewTask)

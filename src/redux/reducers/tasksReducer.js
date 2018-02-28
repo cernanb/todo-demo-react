@@ -6,6 +6,11 @@ const DEFAULT_STATE = [
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
+    case 'ADD_TASK':
+      const newTask = Object.assign({}, action.payload, {
+        id: state.length + 1,
+      })
+      return state.concat(newTask)
     default: {
       return state
     }

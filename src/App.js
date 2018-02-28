@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Dashboard from './components/Dashboard'
 import Navbar from './components/Navbar'
-import NewTask from './components/NewTask'
+import NewTask from './containers/NewTask'
 import TaskList from './containers/TaskList'
 
 class App extends Component {

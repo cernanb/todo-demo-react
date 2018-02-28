@@ -12,16 +12,41 @@ class TaskList extends Component {
       .then(tasks => this.setState({ tasks }))
   }
 
+  toggleTask = id => {
+    const task = this.props.tasks.find(t => t.id === id)
+    const updatedTask = Object.assign({}, task, { completed: !task.completed })
+    fetch(`http://localhost:3001/api/v1/tasks/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ task: updatedTask }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(updatedTask =>
+        this.setState({
+          tasks: this.state.tasks.map(
+            t => (t.id === updatedTask.id ? updatedTask : t)
+          ),
+        })
+      )
+  }
+
   renderOpenTasks() {
     return this.state.tasks
       .filter(task => !task.completed)
-      .map(task => <Task key={task.id} {...task} />)
+      .map(task => (
+        <Task toggleTask={this.toggleTask} key={task.id} {...task} />
+      ))
   }
 
   renderCompletedTasks() {
     return this.state.tasks
       .filter(task => task.completed)
-      .map(task => <Task key={task.id} {...task} />)
+      .map(task => (
+        <Task toggleTask={this.toggleTask} key={task.id} {...task} />
+      ))
   }
 
   render() {

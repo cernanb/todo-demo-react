@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
 import Task from '../components/Task'
 
 class TaskList extends Component {
@@ -7,9 +7,9 @@ class TaskList extends Component {
     tasks: [],
   }
   componentDidMount() {
-    fetch(`http://localhost:3001/api/v1/tasks`)
-      .then(res => res.json())
-      .then(tasks => this.setState({ tasks }))
+    // fetch(`http://localhost:3001/api/v1/tasks`)
+    //   .then(res => res.json())
+    //   .then(tasks => this.setState({ tasks }))
   }
 
   toggleTask = id => {
@@ -34,7 +34,7 @@ class TaskList extends Component {
   }
 
   renderOpenTasks() {
-    return this.state.tasks
+    return this.props.tasks
       .filter(task => !task.completed)
       .map(task => (
         <Task toggleTask={this.toggleTask} key={task.id} {...task} />
@@ -42,7 +42,7 @@ class TaskList extends Component {
   }
 
   renderCompletedTasks() {
-    return this.state.tasks
+    return this.props.tasks
       .filter(task => task.completed)
       .map(task => (
         <Task toggleTask={this.toggleTask} key={task.id} {...task} />
@@ -61,4 +61,10 @@ class TaskList extends Component {
   }
 }
 
-export default TaskList
+const mapStateToProps = state => {
+  return {
+    tasks: state,
+  }
+}
+
+export default connect(mapStateToProps)(TaskList)

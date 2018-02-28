@@ -9,14 +9,6 @@ import NewTask from './components/NewTask'
 import TaskList from './containers/TaskList'
 
 class App extends Component {
-  constructor() {
-    super()
-  }
-
-  componentDidMount() {
-    console.log('app mounting')
-  }
-
   render() {
     return (
       <Router>

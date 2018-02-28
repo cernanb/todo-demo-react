@@ -13,7 +13,7 @@ class TaskList extends Component {
   }
 
   toggleTask = id => {
-    const task = this.props.tasks.find(t => t.id === id)
+    const task = this.state.tasks.find(t => t.id === id)
     const updatedTask = Object.assign({}, task, { completed: !task.completed })
     fetch(`http://localhost:3001/api/v1/tasks/${id}`, {
       method: 'PATCH',

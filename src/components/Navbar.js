@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const Navbar = () => {
+const Navbar = ({ openTasks }) => {
   return (
     <ul>
       <li>
@@ -9,7 +10,7 @@ const Navbar = () => {
           Home
         </Link>
         <Link to="/tasks" style={{ color: 'white', margin: 10 }}>
-          Task List
+          Task List - {openTasks}
         </Link>
         <Link to="/tasks/new" style={{ color: 'white', margin: 10 }}>
           New Task
@@ -19,4 +20,6 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default connect(state => ({
+  openTasks: state.tasks.filter(x => !x.completed).length,
+}))(Navbar)

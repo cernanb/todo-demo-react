@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
+import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Dashboard from './components/Dashboard'
 import Navbar from './components/Navbar'
 import NewTask from './containers/NewTask'
 import TaskList from './containers/TaskList'
+import { getTasks } from './redux/actions/taskActions'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getTasks()
+  }
   render() {
     return (
       <Router>
@@ -23,13 +28,7 @@ class App extends Component {
             <Route
               exact
               path="/tasks"
-              render={props => (
-                <TaskList
-                  {...props}
-                  completeTask={this.completeTask}
-                  something="yes"
-                />
-              )}
+              render={props => <TaskList {...props} completeTask={this.completeTask} something="yes" />}
             />
             <Route path="/tasks/new" component={NewTask} />
           </Switch>
@@ -39,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect(null, { getTasks })(App)

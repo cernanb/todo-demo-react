@@ -11,7 +11,9 @@ export default (state = DEFAULT_STATE, action) => {
     case 'DELETE_TASK_SUCCESS':
       return state.filter(task => task.id !== action.id)
     case 'CREATE_TASK_SUCCESS':
-      return state.map(task => (task.id === action.id ? Object.assign({}, task, { postPending: false }) : task))
+      return state.map(
+        task => (task.uuid === action.uuid ? Object.assign({}, task, { postPending: false, id: action.id }) : task)
+      )
     default:
       return state
   }

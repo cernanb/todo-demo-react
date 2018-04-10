@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import Navbar from './components/Navbar'
 import NewTask from './containers/NewTask'
+import NewUser from './containers/NewUser'
 import TaskList from './containers/TaskList'
 import { getTasks } from './redux/actions/taskActions'
 
@@ -31,6 +32,7 @@ class App extends Component {
               render={props => <TaskList {...props} completeTask={this.completeTask} something="yes" />}
             />
             <Route path="/tasks/new" component={NewTask} />
+            <Route path="/users/new" component={NewUser} />
           </Switch>
         </div>
       </Router>

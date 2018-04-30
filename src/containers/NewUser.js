@@ -7,7 +7,7 @@ class NewUser extends Component {
     return (
       <div>
         <h1>Create a new User</h1>
-        <UserForm history={this.props.history} />
+        <UserForm type="signup" history={this.props.history} />
       </div>
     )
   }

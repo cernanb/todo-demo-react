@@ -10,6 +10,7 @@ import NewTask from './containers/NewTask'
 import NewUser from './containers/NewUser'
 import TaskList from './containers/TaskList'
 import { getTasks } from './redux/actions/taskActions'
+import Login from './containers/Login'
 
 class App extends Component {
   componentDidMount() {
@@ -32,7 +33,8 @@ class App extends Component {
               render={props => <TaskList {...props} completeTask={this.completeTask} something="yes" />}
             />
             <Route path="/tasks/new" component={NewTask} />
-            <Route path="/users/new" component={NewUser} />
+            <Route path="/signup" component={NewUser} />
+            <Route path="/login" component={Login} />
           </Switch>
         </div>
       </Router>

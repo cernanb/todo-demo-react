@@ -12,6 +12,13 @@ const Navbar = ({ openTasks }) => {
         <Link to="/tasks" style={{ color: 'white', margin: 10 }}>
           Task List - {openTasks}
         </Link>
+        <Link to="/signup" style={{ color: 'white', margin: 10 }}>
+          Signup
+        </Link>
+        <Link to="/login" style={{ color: 'white', margin: 10 }}>
+          Login
+        </Link>
+
         <Link to="/tasks/new" style={{ color: 'white', margin: 10 }}>
           New Task
         </Link>

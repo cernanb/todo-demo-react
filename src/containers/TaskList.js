@@ -44,7 +44,7 @@ class TaskList extends Component {
   render() {
     return (
       <div>
-        <h1>Open Tasks</h1>
+        <h1>{this.props.user.username}'s Open Tasks</h1>
         <ul>{this.renderOpenTasks()}</ul>
         <h1>Completed Tasks</h1>
         <ul>{this.renderCompletedTasks()}</ul>
@@ -56,6 +56,7 @@ class TaskList extends Component {
 const mapStateToProps = state => {
   return {
     tasks: state.tasks,
+    user: state.auth.currentUser,
   }
 }
 

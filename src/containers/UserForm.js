@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createUser } from '../redux/actions/userActions'
+import { createUser, login } from '../redux/actions/userActions'
 
 class UserForm extends Component {
   state = {
@@ -9,10 +9,15 @@ class UserForm extends Component {
   }
   submit = e => {
     e.preventDefault()
-    this.props.createUser(this.state).then(() => {
-      this.setState({ username: '', password: '' })
-      this.props.history.push('/tasks')
-    })
+    this.props.type === 'signup'
+      ? this.props.createUser(this.state).then(() => {
+          this.setState({ username: '', password: '' })
+          this.props.history.push('/tasks')
+        })
+      : this.props.login(this.state).then(() => {
+          this.setState({ username: '', password: '' })
+          this.props.history.push('/tasks')
+        })
   }
   handleOnChange = e => {
     this.setState({
@@ -42,4 +47,4 @@ class UserForm extends Component {
   }
 }
 
-export default connect(null, { createUser })(UserForm)
+export default connect(null, { createUser, login })(UserForm)
